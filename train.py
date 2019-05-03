@@ -51,6 +51,10 @@ class Trainer:
 
                 # print every 100 iteration = 12800 (100 * batch_size) images seen
                 if (ix % 100) == 0:
+                    # append loss to history
+                    self.disc_loss_hist.append(loss_D)
+                    self.gen_loss_hist.append(loss_G)
+
                     print('[{0}/{1}] [{2}/{3}] loss_D: {4:.4f}, loss_G: {5:.4f}'.format(epoch + 1, num_epochs,
                                                                                 ix + 1, dataloader_len,
                                                                                 loss_D, loss_G))
@@ -116,10 +120,6 @@ class Trainer:
         loss = self.criterion(fake_images_disc_output, torch.ones_like(fake_images_disc_output))
         loss.backward()
         loss_G += loss.item()
-
-        # append loss to history
-        self.disc_loss_hist.append(loss_D)
-        self.gen_loss_hist.append(loss_G)
 
         return loss_D, loss_G
 
