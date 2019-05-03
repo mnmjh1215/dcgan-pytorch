@@ -23,8 +23,8 @@ class Trainer:
         self.discriminator = discriminator
         self.dataloader = dataloader
 
-        self.gen_optimizer = optim.Adam(self.generator.parameters(), lr=0.0002, betas=(Config.adam_beta1,0.999))
-        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=0.0002, betas=(Config.adam_beta1,0.999))
+        self.gen_optimizer = optim.Adam(self.generator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1,0.999))
+        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1,0.999))
         self.criterion = nn.BCELoss()
 
         self.gen_loss_hist = []
@@ -46,6 +46,8 @@ class Trainer:
             for ix, data in enumerate(self.dataloader, 0):
                 images = data[0].to(Config.device)
                 loss_D, loss_G = self.train_step(images)
+                epoch_loss_D += loss_D
+                epoch_loss_G += loss_G
 
                 # print every 100 iteration = 12800 (100 * batch_size) images seen
                 if (ix % 100) == 0:
