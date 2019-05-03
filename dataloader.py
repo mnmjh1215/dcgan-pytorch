@@ -38,6 +38,7 @@ def load_STL10(batch_size=128, num_workers=2):
     )
 
     dataloader = DataLoader(STL10_dataset,
+                            shuffle=True,
                             batch_size=batch_size,
                             num_workers=num_workers)
     dataloader.name = 'STL10'
@@ -80,6 +81,7 @@ def load_CelebA(batch_size=128, num_workers=2, download=False):
     )
 
     dataloader = DataLoader(CelebA_dataset,
+                            shuffle=True,
                             batch_size=batch_size,
                             num_workers=num_workers)
     dataloader.name = 'CelebA'
@@ -120,6 +122,7 @@ def load_LSUN(batch_size=128, num_workers=2, download=False):
     )
 
     dataloader = DataLoader(LSUN_dataset,
+                            shuffle=True,
                             batch_size=batch_size,
                             num_workers=num_workers)
     dataloader.name = 'LSUN'
