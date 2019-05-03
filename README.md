@@ -4,6 +4,6 @@ The goal of this project is to completely re-implement original DCGAN and to rep
 
 
 
-### Resuts
+### Results
 
 Under training...
