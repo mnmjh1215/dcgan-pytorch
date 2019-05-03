@@ -33,7 +33,6 @@ class Trainer:
         self.curr_epoch = 0
 
     def train(self, num_epochs):
-        # TODO
         fixed_z = torch.rand((8*8, 100, 1, 1), device=Config.device)
         dataloader_len = len(self.dataloader)
 

@@ -9,7 +9,6 @@ from utils import load_model, generate_new_image, get_args
 
 
 def main():
-    # TODO
     device = Config.device
 
     generator = Generator(z_dim=Config.z_dim, gen_features=Config.gen_features, use_bias=Config.gen_use_bias).to(device)
