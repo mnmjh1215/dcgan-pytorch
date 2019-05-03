@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 common_transform = transforms.Compose([
     transforms.Resize([64, 64]),
     transforms.ToTensor(),
-    transforms.Lambda(lambda image: image * 2 - 1)  # to scale image tensors to range [-1, 1], following DCGAN paper
+    transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
 ])
 
 
