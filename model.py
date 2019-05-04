@@ -1,5 +1,4 @@
 # dcgan model implemented in pytorch
-# cheatsheet: https://github.com/znxlwm/pytorch-MNIST-CelebA-GAN-DCGAN/blob/master/pytorch_CelebA_DCGAN.py  <- remove this later!!!
 
 import torch
 import torch.nn as nn

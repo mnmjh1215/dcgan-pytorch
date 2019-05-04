@@ -3,7 +3,6 @@ import torch
 
 
 class Config:
-    # TODO
     # dataloader.py
     batch_size = 128
     num_workers = 2
