@@ -89,8 +89,7 @@ class Trainer:
         # 1-1. train with real images
         images_disc_output = self.discriminator(images)
 
-        # tried to strictly follow loss function defined in GAN paper
-        loss_real = -1 * self.criterion(images_disc_output, torch.zeros_like(images_disc_output))
+        loss_real = self.criterion(images_disc_output, torch.ones_like(images_disc_output))
         loss_real.backward()
         loss_D += loss_real.item()
 
@@ -101,8 +100,7 @@ class Trainer:
 
         fake_images_disc_output = self.discriminator(fake_images)
 
-        # tried to strictly follow loss function defined in GAN paper
-        loss_fake = -1 * self.criterion(fake_images_disc_output, torch.ones_like(fake_images_disc_output))
+        loss_fake = -1 * self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
         loss_fake.backward()
         loss_D += loss_fake.item()
 
