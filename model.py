@@ -113,6 +113,6 @@ class Discriminator(nn.Module):
         x = F.leaky_relu(self.bn3(self.conv3(x)), negative_slope=0.2)
         x = F.leaky_relu(self.bn4(self.conv4(x)), negative_slope=0.2)
         x = self.sigmoid(self.conv5(x))
-        x = x.view(-1, 1)  # flattened, so that it can be directly used to calculate loss
+        x = x.view(-1)  # flattened, so that it can be directly used to calculate loss
 
         return x
