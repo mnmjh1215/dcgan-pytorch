@@ -1,5 +1,6 @@
 # utils
 import torch
+import torch.nn as nn
 import argparse
 from config import Config
 import torchvision.utils as tvutils
@@ -57,4 +58,5 @@ def get_args():
     args = parser.parse_args()
 
     return args
+
 

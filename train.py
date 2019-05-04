@@ -23,8 +23,9 @@ class Trainer:
         self.discriminator = discriminator
         self.dataloader = dataloader
 
-        self.gen_optimizer = optim.Adam(self.generator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1,0.999))
-        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1,0.999))
+        self.gen_optimizer = optim.Adam(self.generator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1, 0.999))
+        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1, 0.999))
+
         self.criterion = nn.BCELoss()
 
         self.gen_loss_hist = []
@@ -88,7 +89,8 @@ class Trainer:
         # 1-1. train with real images
         images_disc_output = self.discriminator(images)
 
-        loss_real = self.criterion(images_disc_output, torch.ones_like(images_disc_output))
+        # tried to strictly follow loss function defined in GAN paper
+        loss_real = -1 * self.criterion(images_disc_output, torch.zeros_like(images_disc_output))
         loss_real.backward()
         loss_D += loss_real.item()
 
@@ -99,7 +101,8 @@ class Trainer:
 
         fake_images_disc_output = self.discriminator(fake_images)
 
-        loss_fake = self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
+        # tried to strictly follow loss function defined in GAN paper
+        loss_fake = -1 * self.criterion(fake_images_disc_output, torch.ones_like(fake_images_disc_output))
         loss_fake.backward()
         loss_D += loss_fake.item()
 

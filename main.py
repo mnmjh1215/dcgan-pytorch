@@ -8,13 +8,12 @@ from train import Trainer
 from utils import load_model, generate_new_image, get_args
 
 
-def main():
+def main(args):
     device = Config.device
+    print("Pytorch running with device {0}".format(device))
 
     generator = Generator(z_dim=Config.z_dim, gen_features=Config.gen_features, use_bias=Config.gen_use_bias).to(device)
     discriminator = Discriminator(disc_features=Config.disc_features, use_bias=Config.disc_use_bias).to(device)
-
-    args = get_args()
 
     if args.model_path:
         load_model(generator, discriminator, args.model_path)
@@ -41,4 +40,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    args = get_args()
+    main(args)
