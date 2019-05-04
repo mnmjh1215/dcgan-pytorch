@@ -100,7 +100,7 @@ class Trainer:
 
         fake_images_disc_output = self.discriminator(fake_images)
 
-        loss_fake = -1 * self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
+        loss_fake = self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
         loss_fake.backward()
         loss_D += loss_fake.item()
 
@@ -120,7 +120,6 @@ class Trainer:
         # append loss to history
         self.disc_loss_hist.append(loss_D)
         self.gen_loss_hist.append(loss_G)
-
 
         return loss_D, loss_G
 
