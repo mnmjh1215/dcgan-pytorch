@@ -18,7 +18,7 @@ class Generator(nn.Module):
     Generator network in DCGAN.
     Implemented to strictly follow original DCGAN paper's description as much as possible.
     """
-    def __init__(self, z_dim=100, gen_features=128, use_bias=False):
+    def __init__(self, z_dim=100, gen_features=128, use_bias=True):
         """
         :param z_dim: dimension of random vector z (default is 100, which is used in DCGAN paper for LSUN dataset)
         :param gen_features: features (or channels) of last layer before generating image.
