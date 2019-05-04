@@ -1,4 +1,5 @@
 # defines training procedure
+# for training GAN, some of advice from https://github.com/soumith/ganhacks was applied
 
 import os
 import time
@@ -23,8 +24,9 @@ class Trainer:
         self.discriminator = discriminator
         self.dataloader = dataloader
 
-        self.gen_optimizer = optim.Adam(self.generator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1, 0.999))
-        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.adam_lr, betas=(Config.adam_beta1, 0.999))
+        # disc_optimizer is SGD, following advice from https://github.com/soumith/ganhacks
+        self.gen_optimizer = optim.SGD(self.generator.parameters(), lr=Config.lr)
+        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.lr, betas=(Config.adam_beta1, 0.999))
 
         self.criterion = nn.BCELoss()
 
@@ -113,7 +115,9 @@ class Trainer:
         fake_images = self.generator(random_z)
         fake_images_disc_output = self.discriminator(fake_images)
 
-        loss = self.criterion(fake_images_disc_output, torch.ones_like(fake_images_disc_output))
+        # try alternative generator loss, to prevent vanishing gradient
+        # following advice from https://github.com/soumith/ganhacks
+        loss = -1 * self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
         loss.backward()
         loss_G += loss.item()
 

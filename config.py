@@ -13,7 +13,7 @@ class Config:
     disc_features = 128
     disc_use_bias = True
     # train.py
-    adam_lr = 0.0002
+    lr = 0.0002
     adam_beta1 = 0.5
     # main.py
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
