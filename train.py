@@ -20,15 +20,15 @@ class Trainer:
         :param discriminator: Discriminator network from model.py
         :param dataloader: Data Loader from dataloader.py
         """
-        self.generator = generator
-        self.discriminator = discriminator
+        self.generator = generator.to(Config.device)
+        self.discriminator = discriminator.to(Config.device)
         self.dataloader = dataloader
 
         # disc_optimizer is SGD, following advice from https://github.com/soumith/ganhacks
         self.gen_optimizer = optim.SGD(self.generator.parameters(), lr=Config.lr)
         self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.lr, betas=(Config.adam_beta1, 0.999))
 
-        self.criterion = nn.BCELoss()
+        self.criterion = nn.BCELoss().to(Config.device)
 
         self.gen_loss_hist = []
         self.disc_loss_hist = []
@@ -115,7 +115,7 @@ class Trainer:
         fake_images = self.generator(random_z)
         fake_images_disc_output = self.discriminator(fake_images)
 
-        # try alternative generator loss, to prevent vanishing gradient
+        # try alternative generator loss, to prevent vanishing gradient in early stage
         # following advice from https://github.com/soumith/ganhacks
         loss = -1 * self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
         loss.backward()
@@ -148,7 +148,7 @@ class Trainer:
         self.discriminator.load_state_dict(checkpoint['discriminator_state_dict'])
         self.gen_optimizer.load_state_dict(checkpoint['gen_optimizer_state_dict'])
         self.disc_optimizer.load_state_dict(checkpoint['disc_optimizer_state_dict'])
-        self.curr_epoch = checkpoint['epoch']
+        self.curr_epoch = checkpoint['epoch'] + 1
         self.gen_loss_hist = checkpoint['gen_loss_hist']
         self.disc_loss_hist = checkpoint['disc_loss_hist']
 
