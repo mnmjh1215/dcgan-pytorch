@@ -19,6 +19,7 @@ class Trainer:
         :param generator: Generator network from model.py
         :param discriminator: Discriminator network from model.py
         :param dataloader: Data Loader from dataloader.py
+        :param use_stochastic_soft_label: if True, then for discriminator, labels for true images are drawn from [0.7, 1) and labels for fake iamges are drawn from [0, 0.3) following uniform distribution. If False, then labels for true images are 1, and labels for fake images are 0, deterministically.
         """
         self.generator = generator.to(Config.device)
         self.discriminator = discriminator.to(Config.device)
@@ -131,7 +132,7 @@ class Trainer:
         # try alternative generator loss, to prevent vanishing gradient in early stage
         # we want to maximize log D, instead of minimizing log (1-D)
         # <=> equivalent to minmizing -log D
-        loss = -1 * self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
+        loss = -1 * torch.log(fake_images_disc_output)
         loss.backward()
         loss_G += loss.item()
 
