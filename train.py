@@ -129,10 +129,7 @@ class Trainer:
         fake_images = self.generator(random_z)
         fake_images_disc_output = self.discriminator(fake_images)
 
-        # try alternative generator loss, to prevent vanishing gradient in early stage
-        # we want to maximize log D, instead of minimizing log (1-D)
-        # <=> equivalent to minmizing -log D
-        loss = (-1 * torch.log(fake_images_disc_output)).mean()
+        loss = self.criterion(fake_images_disc_output, torch.ones_like(fake_images_disc_output))
         loss.backward()
         loss_G += loss.item()
 
