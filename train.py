@@ -14,7 +14,7 @@ class Trainer:
     """
     Trainer for DCGAN.
     """
-    def __init__(self, generator, discriminator, dataloader):
+    def __init__(self, generator, discriminator, dataloader, use_stochastic_soft_label=True):
         """
         :param generator: Generator network from model.py
         :param discriminator: Discriminator network from model.py
@@ -25,8 +25,8 @@ class Trainer:
         self.dataloader = dataloader
 
         # disc_optimizer is SGD, following advice from https://github.com/soumith/ganhacks
-        self.gen_optimizer = optim.SGD(self.generator.parameters(), lr=Config.lr)
-        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.lr, betas=(Config.adam_beta1, 0.999))
+        self.gen_optimizer = optim.Adam(self.generator.parameters(), lr=Config.lr, betas=(Config.adam_beta1, 0.999))
+        self.disc_optimizer = optim.SGD(self.discriminator.parameters(), lr=Config.lr)
 
         self.criterion = nn.BCELoss().to(Config.device)
 
@@ -34,6 +34,9 @@ class Trainer:
         self.disc_loss_hist = []
 
         self.curr_epoch = 0
+
+        # to avoid discriminator overfitting
+        self.stochastic_soft_label = use_stochastic_soft_label
 
     def train(self, num_epochs):
         fixed_z = torch.rand((8*8, 100, 1, 1), device=Config.device)
@@ -86,12 +89,17 @@ class Trainer:
         batch_size = images.shape[0]  # may not equal to our target batch_size in last batch
 
         # 1. First, train Discriminator
-        self.grad_reset()
+        self.discriminator.zero_grad()
 
         # 1-1. train with real images
         images_disc_output = self.discriminator(images)
 
-        loss_real = self.criterion(images_disc_output, torch.ones_like(images_disc_output))
+        if self.stochastic_soft_label:
+            real_target = torch.rand_like(images_disc_output) * 0.3 + 0.7  # between 0.7 and 1
+        else:
+            real_target = torch.ones_like(images_disc_output)
+
+        loss_real = self.criterion(images_disc_output, real_target)
         loss_real.backward()
         loss_D += loss_real.item()
 
@@ -102,21 +110,27 @@ class Trainer:
 
         fake_images_disc_output = self.discriminator(fake_images)
 
-        loss_fake = self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
+        if self.stochastic_soft_label:
+            fake_target = torch.rand_like(fake_images_disc_output) * 0.3  # between 0 and 0.3
+        else:
+            fake_target = torch.zeros_like(fake_images_disc_output)
+
+        loss_fake = self.criterion(fake_images_disc_output, fake_target)
         loss_fake.backward()
         loss_D += loss_fake.item()
 
         self.disc_optimizer.step()
 
         # 2. Train Generator
-        self.grad_reset()
+        self.generator.zero_grad()
 
         random_z = torch.rand((batch_size, 100, 1, 1), device=Config.device)
         fake_images = self.generator(random_z)
         fake_images_disc_output = self.discriminator(fake_images)
 
         # try alternative generator loss, to prevent vanishing gradient in early stage
-        # following advice from https://github.com/soumith/ganhacks
+        # we want to maximize log D, instead of minimizing log (1-D)
+        # <=> equivalent to minmizing -log D
         loss = -1 * self.criterion(fake_images_disc_output, torch.zeros_like(fake_images_disc_output))
         loss.backward()
         loss_G += loss.item()
