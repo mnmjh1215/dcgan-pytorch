@@ -133,6 +133,8 @@ class Trainer:
         loss.backward()
         loss_G += loss.item()
 
+        self.gen_optimizer.step()
+
         # append loss to history
         self.disc_loss_hist.append(loss_D)
         self.gen_loss_hist.append(loss_G)
