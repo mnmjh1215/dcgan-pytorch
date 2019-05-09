@@ -26,7 +26,7 @@ class Trainer:
 
         # disc_optimizer is SGD, following advice from https://github.com/soumith/ganhacks
         self.gen_optimizer = optim.Adam(self.generator.parameters(), lr=Config.lr, betas=(Config.adam_beta1, 0.999))
-        self.disc_optimizer = optim.SGD(self.discriminator.parameters(), lr=Config.lr)
+        self.disc_optimizer = optim.Adam(self.discriminator.parameters(), lr=Config.lr, betas=(Config.adam_beta1, 0.999))
 
         self.criterion = nn.BCELoss().to(Config.device)
 
