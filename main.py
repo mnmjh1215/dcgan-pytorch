@@ -28,11 +28,11 @@ def main(args):
         # not testing means... training!
         print('training with {0}...'.format(args.dataset))
         if args.dataset == 'CelebA':
-            dataloader = load_CelebA(Config.batch_size, Config.num_workers)
+            dataloader = load_CelebA(Config.batch_size, Config.num_workers, download=args.download_dataset)
         elif args.dataset == 'STL10':
-            dataloader = load_STL10(Config.batch_size, Config.num_workers)
+            dataloader = load_STL10(Config.batch_size, Config.num_workers, download=args.download_dataset)
         elif args.dataset == 'LSUN':
-            dataloader = load_LSUN(Config.batch_size, Config.num_workers)
+            dataloader = load_LSUN(Config.batch_size, Config.num_workers, download=args.download_dataset)
 
         print("loading trainer...")
         trainer = Trainer(generator, discriminator, dataloader, Config.use_stochastic_soft_label)

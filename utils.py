@@ -55,6 +55,11 @@ def get_args():
     parser.add_argument('--image_save_path',
                         help='path to save generated image, required to save image generated at testing')
 
+    parser.add_argument('--download_dataset',
+                        default=False,
+                        action='store_true',
+                        help='use this argument to download dataset')
+
     args = parser.parse_args()
 
     return args
