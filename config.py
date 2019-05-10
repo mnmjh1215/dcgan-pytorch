@@ -18,5 +18,5 @@ class Config:
     use_stochastic_soft_label = False  # let's try both
     # main.py
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    num_epochs = 20
+    num_epochs = 30
 
