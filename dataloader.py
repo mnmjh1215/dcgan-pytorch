@@ -112,7 +112,7 @@ def load_LSUN(batch_size=128, num_workers=2, download=False):
     if download and not os.path.isdir('data/LSUN/sample'):
         import subprocess
         subprocess.run(['kaggle', 'datasets', 'download', 'jhoward/lsun_bedroom', '-p', 'data/LSUN'])
-        subprocess.run(['unzip', 'data/LSUN/lsun_bedroom.zip', , '-d', 'data/LSUN', '-q'])
+        subprocess.run(['unzip', 'data/LSUN/lsun_bedroom.zip', '-d', 'data/LSUN', '-q'])
         subprocess.run(['unzip', 'data/LSUN/sample.zip', '-d', 'data/LSUN', '-q'])
         subprocess.run(['rm', 'data/LSUN/lsun_bedroom.zip', 'data/LSUN/sample.zip'])
 
