@@ -71,8 +71,8 @@ def load_CelebA(batch_size=128, num_workers=2, download=False):
     if download and not os.path.isdir('data/CelebA/img_align_celeba'):
         import subprocess
         subprocess.run(['kaggle', 'datasets', 'download', 'jessicali9530/celeba-dataset', '-p', 'data/CelebA'])
-        subprocess.run(['unzip', 'data/CelebA/celeba-dataset.zip', '-d', 'data/CelebA', '-q'])
-        subprocess.run(['unzip', 'data/CelebA/img_align_celeba.zip', '-d', 'data/CelebA', '-q'])
+        subprocess.run(['unzip', '-q', 'data/CelebA/celeba-dataset.zip', '-d', 'data/CelebA'])
+        subprocess.run(['unzip', '-q', 'data/CelebA/img_align_celeba.zip', '-d', 'data/CelebA'])
         subprocess.run(['rm', 'data/CelebA/celeba-dataset.zip', 'data/CelebA/img_align_celeba.zip'])
 
     CelebA_dataset = datasets.ImageFolder(
@@ -112,8 +112,8 @@ def load_LSUN(batch_size=128, num_workers=2, download=False):
     if download and not os.path.isdir('data/LSUN/sample'):
         import subprocess
         subprocess.run(['kaggle', 'datasets', 'download', 'jhoward/lsun_bedroom', '-p', 'data/LSUN'])
-        subprocess.run(['unzip', 'data/LSUN/lsun_bedroom.zip', '-d', 'data/LSUN', '-q'])
-        subprocess.run(['unzip', 'data/LSUN/sample.zip', '-d', 'data/LSUN', '-q'])
+        subprocess.run(['unzip', '-q', 'data/LSUN/lsun_bedroom.zip', '-d', 'data/LSUN'])
+        subprocess.run(['unzip', '-q', 'data/LSUN/sample.zip', '-d', 'data/LSUN'])
         subprocess.run(['rm', 'data/LSUN/lsun_bedroom.zip', 'data/LSUN/sample.zip'])
 
     LSUN_dataset = datasets.ImageFolder(
