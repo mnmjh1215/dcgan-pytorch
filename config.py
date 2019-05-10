@@ -15,7 +15,7 @@ class Config:
     # train.py
     lr = 0.0002
     adam_beta1 = 0.5
-    use_stochastic_soft_label = False  # let's try both
+    use_stochastic_soft_label = True  # let's try this!
     # main.py
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     num_epochs = 30
