@@ -96,7 +96,7 @@ class Trainer:
         images_disc_output = self.discriminator(images)
 
         if self.stochastic_soft_label:
-            real_target = torch.rand_like(images_disc_output) * 0.3 + 0.7  # between 0.7 and 1
+            real_target = torch.rand_like(images_disc_output) * 0.1 + 0.9  # between 0.9 and 1
         else:
             real_target = torch.ones_like(images_disc_output)
 
@@ -112,7 +112,7 @@ class Trainer:
         fake_images_disc_output = self.discriminator(fake_images)
 
         if self.stochastic_soft_label:
-            fake_target = torch.rand_like(fake_images_disc_output) * 0.3  # between 0 and 0.3
+            fake_target = torch.rand_like(fake_images_disc_output) * 0.1  # between 0 and 0.1
         else:
             fake_target = torch.zeros_like(fake_images_disc_output)
 
