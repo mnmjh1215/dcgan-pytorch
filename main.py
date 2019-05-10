@@ -6,6 +6,7 @@ from config import Config
 from dataloader import *
 from train import Trainer
 from utils import load_model, generate_new_image, get_args
+import matplotlib.pyplot as plt
 
 
 def main(args):
@@ -34,10 +35,14 @@ def main(args):
             dataloader = load_LSUN(Config.batch_size, Config.num_workers)
 
         print("loading trainer...")
-        trainer = Trainer(generator, discriminator, dataloader)
+        trainer = Trainer(generator, discriminator, dataloader, Config.use_stochastic_soft_label)
         print("start training...")
-        trainer.train(Config.num_epochs)
+        disc_loss_history, gen_loss_history = trainer.train(Config.num_epochs)
 
+        plt.plot(disc_loss_history, label='Discriminator loss')
+        plt.plot(gen_loss_history, label='Generator loss')
+        plt.legend()
+        plt.show()
 
 if __name__ == '__main__':
     args = get_args()
