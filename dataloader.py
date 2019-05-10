@@ -71,8 +71,8 @@ def load_CelebA(batch_size=128, num_workers=2, download=False):
     if download and not os.path.isdir('data/CelebA/img_align_celeba'):
         import subprocess
         subprocess.run(['kaggle', 'datasets', 'download', 'jessicali9530/celeba-dataset', '-p', 'data/CelebA'])
-        subprocess.run(['unzip', 'data/CelebA/celeba-dataset.zip'])
-        subprocess.run(['unzip', 'data/CelebA/img_align_celeba.zip'])
+        subprocess.run(['unzip', 'data/CelebA/celeba-dataset.zip', '-d', 'data/CelebA'])
+        subprocess.run(['unzip', 'data/CelebA/img_align_celeba.zip', '-d', 'data/CelebA'])
         subprocess.run(['rm', 'data/CelebA/celeba-dataset.zip', 'data/CelebA/img_align_celeba.zip'])
 
     CelebA_dataset = datasets.ImageFolder(
