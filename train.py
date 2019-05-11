@@ -40,7 +40,7 @@ class Trainer:
         self.stochastic_soft_label = use_stochastic_soft_label
 
     def train(self, num_epochs):
-        fixed_z = torch.rand((8*8, 100, 1, 1), device=Config.device)
+        fixed_z = torch.randn((8*8, 100, 1, 1), device=Config.device)
         dataloader_len = len(self.dataloader)
 
         for epoch in range(self.curr_epoch, num_epochs):
@@ -106,7 +106,7 @@ class Trainer:
 
         # 1-2. next, train Discriminator with fake images
         # Z follows uniform distribution, as suggested in DCGAN paper
-        random_z = torch.rand((batch_size, 100, 1, 1), device=Config.device)
+        random_z = torch.randn((batch_size, 100, 1, 1), device=Config.device)
         fake_images = self.generator(random_z)
 
         fake_images_disc_output = self.discriminator(fake_images)
@@ -125,7 +125,7 @@ class Trainer:
         # 2. Train Generator
         self.generator.zero_grad()
 
-        random_z = torch.rand((batch_size, 100, 1, 1), device=Config.device)
+        random_z = torch.randn((batch_size, 100, 1, 1), device=Config.device)
         fake_images = self.generator(random_z)
         fake_images_disc_output = self.discriminator(fake_images)
 

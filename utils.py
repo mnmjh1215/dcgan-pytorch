@@ -10,7 +10,7 @@ import numpy as np
 
 def generate_new_image(generator, z=None, show=False, save_path=None):
     if z is None:
-        z = torch.rand((8*8, 100, 1, 1), device=Config.device)
+        z = torch.randn((8*8, 100, 1, 1), device=Config.device)
 
     generator.eval()
     new_images = generator(z).detach().cpu()
