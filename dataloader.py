@@ -9,8 +9,8 @@ from torch.utils.data import DataLoader
 
 # transform to be used for most(?) data sets
 common_transform = transforms.Compose([
-    transforms.Resize([64, 64]),
-    transforms.CenterCrop(64),
+    transforms.Resize(64),  # make shorter side 64
+    transforms.CenterCrop(64),  # then center crop to make image 64 x 64
     transforms.ToTensor(),
     transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))
 ])
