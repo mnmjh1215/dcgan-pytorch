@@ -40,16 +40,14 @@ python main.py --test --model_path MODEL_PATH (--image_save_path IMAGE_SAVE_PATH
 
 * New images generated with random z
 
-  
-
   ![final_image_after_20_1](./images/CelebA-soft-label/final_image_after_20_1.jpg)
 
   ![final_image_after_20_2](./images/CelebA-soft-label/final_image_after_20_2.jpg)
 
-![final_image_after_20_3](./images/CelebA-soft-label/final_image_after_20_3.jpg)
+  ![final_image_after_20_3](./images/CelebA-soft-label/final_image_after_20_3.jpg)
 
-![final_image_after_20_4](./images/CelebA-soft-label/final_image_after_20_4.jpg)
+  ![final_image_after_20_4](./images/CelebA-soft-label/final_image_after_20_4.jpg)
 
-![final_image_after_20_5](./images/CelebA-soft-label/final_image_after_20_5.jpg)
+  ![final_image_after_20_5](./images/CelebA-soft-label/final_image_after_20_5.jpg)
 
 * As you can see, some generated images are really good, while others are not good enough, and some are somewhat weird and scary
