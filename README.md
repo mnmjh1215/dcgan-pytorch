@@ -30,7 +30,6 @@ python main.py --test --model_path MODEL_PATH (--image_save_path IMAGE_SAVE_PATH
 
 ## Results
 
-----------------------------------------------------------
 
 ### CelebA (soft, stochastic label: real=0.9-1, fake=0-0.1)
 
@@ -56,11 +55,11 @@ As you can see, some generated images are really good, while others are not good
 
 Following images show transition from leftmost image to rightmost image. Nine images in middle are generated using linear combinations of two latent vectors that were used to generate leftmost and rightmost images.
 
-![transition 1](./images/CelebA-soft-label/image_transition_1.jpg]
+![transition 1](./images/CelebA-soft-label/image_transition_1.jpg)
 
-![transition 2](./images/CelebA-soft-label/image_transition_2.jpg]
+![transition 2](./images/CelebA-soft-label/image_transition_2.jpg)
 
-![transition 3](./images/CelebA-soft-label/image_transition_3.jpg]
+![transition 3](./images/CelebA-soft-label/image_transition_3.jpg)
 
 
 ### Other data sets under training...
