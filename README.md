@@ -40,14 +40,27 @@ python main.py --test --model_path MODEL_PATH (--image_save_path IMAGE_SAVE_PATH
 
 * New images generated with random z
 
-  ![final_image_after_20_1](./images/CelebA-soft-label/final_image_after_20_1.jpg)
+![final_image_after_20_1](./images/CelebA-soft-label/final_image_after_20_1.jpg)
 
-  ![final_image_after_20_2](./images/CelebA-soft-label/final_image_after_20_2.jpg)
+![final_image_after_20_2](./images/CelebA-soft-label/final_image_after_20_2.jpg)
 
-  ![final_image_after_20_3](./images/CelebA-soft-label/final_image_after_20_3.jpg)
+![final_image_after_20_3](./images/CelebA-soft-label/final_image_after_20_3.jpg)
 
-  ![final_image_after_20_4](./images/CelebA-soft-label/final_image_after_20_4.jpg)
+![final_image_after_20_4](./images/CelebA-soft-label/final_image_after_20_4.jpg)
 
-  ![final_image_after_20_5](./images/CelebA-soft-label/final_image_after_20_5.jpg)
+![final_image_after_20_5](./images/CelebA-soft-label/final_image_after_20_5.jpg)
 
-* As you can see, some generated images are really good, while others are not good enough, and some are somewhat weird and scary
+As you can see, some generated images are really good, while others are not good enough, and some are somewhat weird and scary
+
+* Transition from one generated image to another
+
+Following images show transition from leftmost image to rightmost image. Nine images in middle are generated using linear combinations of two latent vectors that were used to generate leftmost and rightmost images.
+
+![transition 1](./images/CelebA-soft-label/image_transition_1.jpg]
+
+![transition 2](./images/CelebA-soft-label/image_transition_2.jpg]
+
+![transition 3](./images/CelebA-soft-label/image_transition_3.jpg]
+
+
+### Other data sets under training...
