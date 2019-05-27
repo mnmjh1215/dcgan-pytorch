@@ -33,6 +33,8 @@ python main.py --test --model_path MODEL_PATH (--image_save_path IMAGE_SAVE_PATH
 
 ### CelebA (soft, stochastic label: real=0.9-1, fake=0-0.1)
 
+CelebA data set was trained using Google Colaboratory for 20 epochs, which took around 9-10 hours.
+
 * Images generated using fixed noise
 
 ![training sequence](./images/CelebA-soft-label/CelebA-epoch-20-soft.gif)
